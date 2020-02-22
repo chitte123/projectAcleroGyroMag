@@ -1213,6 +1213,12 @@
                     <name>$PROJ_DIR$\..\Src\frts\function.c</name>
                 </file>
             </group>
+            <group>
+                <name>ultraSonic</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\ultraSonic\ultraSonic.c</name>
+                </file>
+            </group>
             <file>
                 <name>$PROJ_DIR$\..\Src\freertos.c</name>
             </file>

@@ -26,6 +26,7 @@
 /* USER CODE BEGIN Includes */
 #include "accelero.h"
 #include "function.h"
+#include "ultraSonic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,7 +105,8 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   //startAccelero();
-  freeRtosTask();
+  //freeRtosTask();
+  initUltraSonic();
   /* USER CODE END 2 */
   /* Init scheduler */
 //  osKernelInitialize();

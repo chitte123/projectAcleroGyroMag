@@ -355,6 +355,7 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/portable/IAR/ARM_CM4F</state>
                     <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\frts</state>
+                    <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\ultraSonic</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1055,6 +1056,12 @@
                 <name>frts</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\frts\function.c</name>
+                </file>
+            </group>
+            <group>
+                <name>ultraSonic</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\ultraSonic\ultraSonic.c</name>
                 </file>
             </group>
             <file>
