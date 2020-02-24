@@ -1214,6 +1214,15 @@
                 </file>
             </group>
             <group>
+                <name>i2cLcdLibrary</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\i2cLcdLibrary\lcd_i2cModule.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\i2cLcdLibrary\lcdI2c.c</name>
+                </file>
+            </group>
+            <group>
                 <name>ultraSonic</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\ultraSonic\ultraSonic.c</name>
@@ -1293,6 +1302,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
             </file>
         </group>
     </group>

@@ -27,6 +27,9 @@
 #include "accelero.h"
 #include "function.h"
 #include "ultraSonic.h"
+#include "lcdI2c.h"
+#include "lcd_i2cModule.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,7 +111,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_USART2_UART_Init();
- 
+  lcdInit();
   /* USER CODE BEGIN 2 */
   //startAccelero();
   //freeRtosTask();
