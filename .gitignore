@@ -1,4 +1,4 @@
-EWARM/projectAcleroGyroMag/
-EWARM/settings/
+EWARM/projectAcleroGyroMag/*
+EWARM/settings/*
 *.dep
 
