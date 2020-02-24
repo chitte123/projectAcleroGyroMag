@@ -1223,6 +1223,12 @@
                 </file>
             </group>
             <group>
+                <name>uart</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\uart\uart.c</name>
+                </file>
+            </group>
+            <group>
                 <name>ultraSonic</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\ultraSonic\ultraSonic.c</name>

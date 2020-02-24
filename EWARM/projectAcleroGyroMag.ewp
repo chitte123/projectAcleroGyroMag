@@ -357,6 +357,7 @@
                     <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\frts</state>
                     <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\ultraSonic</state>
                     <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\i2cLcdLibrary</state>
+                    <state>G:\stm32\myCode\f411Disc\projectAcleroGyroMag\Src\uart</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1066,6 +1067,12 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\i2cLcdLibrary\lcdI2c.c</name>
+                </file>
+            </group>
+            <group>
+                <name>uart</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\uart\uart.c</name>
                 </file>
             </group>
             <group>
