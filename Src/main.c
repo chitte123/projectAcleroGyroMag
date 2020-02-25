@@ -30,6 +30,7 @@
 #include "lcdI2c.h"
 #include "lcd_i2cModule.h"
 #include "uart.h"
+#include "gyroL3gd20.h"
 
 /* USER CODE END Includes */
 
@@ -48,7 +49,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c1;
+
 
 
 extern UART_HandleTypeDef huart2;
@@ -108,12 +109,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  lcdInit();
-  /* USER CODE BEGIN 2 */
+    /* USER CODE BEGIN 2 */
   //startAccelero();
   //freeRtosTask();
   initUltraSonic();
+  gyroInit();
   /* USER CODE END 2 */
   /* Init scheduler */
   osKernelInitialize();
@@ -203,7 +203,6 @@ void SystemClock_Config(void)
 
 
 
-
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -278,14 +277,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
   HAL_GPIO_Init(I2S3_WS_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : SPI1_SCK_Pin SPI1_MISO_Pin SPI1_MOSI_Pin */
-  GPIO_InitStruct.Pin = SPI1_SCK_Pin|SPI1_MISO_Pin|SPI1_MOSI_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CLK_IN_Pin PB12 */
   GPIO_InitStruct.Pin = CLK_IN_Pin|GPIO_PIN_12;

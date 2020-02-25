@@ -1214,6 +1214,12 @@
                 </file>
             </group>
             <group>
+                <name>gyroL3gd20</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\gyroL3gd20\gyroL3gd20.c</name>
+                </file>
+            </group>
+            <group>
                 <name>i2cLcdLibrary</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\i2cLcdLibrary\lcd_i2cModule.c</name>
