@@ -33,10 +33,8 @@ uint8_t gyroInit(void)
   {
       Error_Handler();
   }
-
   //uint8_t id = 0;
-  return BSP_GYRO_ReadID();
-  
+  return BSP_GYRO_ReadID();  
 }
 
 void gyroStart(void)

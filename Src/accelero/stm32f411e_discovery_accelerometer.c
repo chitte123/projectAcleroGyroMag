@@ -7,11 +7,16 @@
 static ACCELERO_DrvTypeDef *AccelerometerDrv;
 
 
+void acceleroInit(void)
+{
+  BSP_ACCELERO_Init();
+  BSP_ACCELERO_Click_ITConfig();
+}
+
 void startAccelero(void)
 {
   int16_t pDataXYZ[3] = {0};
-  BSP_ACCELERO_Init();
-  BSP_ACCELERO_Click_ITConfig();
+  
   while(1)
   {
       BSP_ACCELERO_GetXYZ(pDataXYZ);

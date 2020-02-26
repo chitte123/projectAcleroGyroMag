@@ -31,6 +31,7 @@
 #include "lcd_i2cModule.h"
 #include "uart.h"
 #include "gyroL3gd20.h"
+#include "stm32f411e_discovery_accelerometer.h"
 
 /* USER CODE END Includes */
 
@@ -110,13 +111,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
     /* USER CODE BEGIN 2 */
-  //startAccelero();
-  //freeRtosTask();
+  acceleroInit();
   initUltraSonic();
   gyroInit();
+  freeRtosTask();
+
   /* USER CODE END 2 */
   /* Init scheduler */
-  osKernelInitialize();
+//  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -136,14 +138,14 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
-  osKernelStart();
+//  osKernelStart();
  
   /* We should never get here as control is now taken by the scheduler */
 

@@ -15,8 +15,6 @@ uint8_t msg[30] = {0};
 void initUltraSonic(void)
 {
   initTim5();
-
-
 }
 
 void ultraSonicStart(void)
