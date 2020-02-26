@@ -63,6 +63,9 @@ uint8_t BSP_ACCELERO_Init(void);
 void    BSP_ACCELERO_Reset(void);
 void    BSP_ACCELERO_Click_ITConfig(void);
 void    BSP_ACCELERO_GetXYZ(int16_t *pDataXYZ);
+void acceleroInit(void);
+void startAccelero(void);
+
 
 
 #ifdef __cplusplus

@@ -3,12 +3,43 @@
 #include "task.h"
 #include "function.h"
 
+#include "accelero.h"
+#include "function.h"
+#include "ultraSonic.h"
+#include "lcdI2c.h"
+#include "lcd_i2cModule.h"
+#include "uart.h"
+#include "gyroL3gd20.h"
+#include "stm32f411e_discovery_accelerometer.h"
+
+
 uint32_t mainDELAY_LOOP_COUNT = 10000;
+
+//void freeRtosTask(void)
+//{
+//  xTaskCreate( vTask1, /* Pointer to the function that implements the task. */
+//              "Task 1",/* Text name for the task. This is to facilitate 
+//              debugging only. */
+//              500, /* Stack depth - small microcontrollers will use much
+//              less stack than this. */
+//              NULL, /* This example does not use the task parameter. */
+//              1, /* This task will run at priority 1. */
+//              NULL ); /* This example does not use the task handle. */
+//  
+//  xTaskCreate( vTask2, "Task 2", 500, NULL, 1, NULL );
+//  xTaskCreate( vTask3, "Task 2", 500, NULL, 1, NULL );
+//  xTaskCreate( vTask4, "Task 2", 500, NULL, 1, NULL );
+//
+//    
+//  
+//  /* Start the scheduler so the tasks start executing. */
+//  vTaskStartScheduler();
+//}
 
 void freeRtosTask(void)
 {
-  xTaskCreate( vTask1, /* Pointer to the function that implements the task. */
-              "Task 1",/* Text name for the task. This is to facilitate 
+  xTaskCreate((TaskFunction_t)startAccelero, /* Pointer to the function that implements the task. */
+              "Accelero",/* Text name for the task. This is to facilitate 
               debugging only. */
               500, /* Stack depth - small microcontrollers will use much
               less stack than this. */
@@ -16,9 +47,9 @@ void freeRtosTask(void)
               1, /* This task will run at priority 1. */
               NULL ); /* This example does not use the task handle. */
   
-  xTaskCreate( vTask2, "Task 2", 500, NULL, 1, NULL );
-  xTaskCreate( vTask3, "Task 2", 500, NULL, 1, NULL );
-  xTaskCreate( vTask4, "Task 2", 500, NULL, 1, NULL );
+  xTaskCreate((TaskFunction_t) gyroStart, "Gyro", 500, NULL, 1, NULL );
+  xTaskCreate( (TaskFunction_t)ultraSonicStart, "ultraSonic", 500, NULL, 1, NULL );
+  //xTaskCreate( vTask4, "Task 2", 500, NULL, 1, NULL );
 
     
   

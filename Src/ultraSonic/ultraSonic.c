@@ -9,13 +9,16 @@ extern UART_HandleTypeDef huart2;
 uint32_t time = 0;
 uint32_t sensorTime = 0;
 uint32_t distance = 0;
+uint8_t msg[30] = {0};
 
 
 void initUltraSonic(void)
 {
-  uint8_t msg[30] = {0};
   initTim5();
+}
 
+void ultraSonicStart(void)
+{
     while(1)
     {
       sensorTime = hcsr04_read();
@@ -49,6 +52,9 @@ uint32_t hcsr04_read(void)
 
 void initTim5(void)
 {
+    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
   __HAL_RCC_TIM5_CLK_ENABLE();
   htim5.Instance = TIM5;
   htim5.Init.Prescaler = 47;
@@ -56,7 +62,21 @@ void initTim5(void)
   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
   {
     Error_Handler();
-  }  
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM5_Init 2 */
+
+  /* USER CODE END TIM5_Init 2 */  
 }
 
 void delayUs(uint32_t us)
