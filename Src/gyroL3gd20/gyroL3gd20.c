@@ -1,10 +1,13 @@
 #include "gyroL3gd20.h"
-
+#include "uart.h"
 
 /******************************* SPI Routines**********************************/
  SPI_HandleTypeDef SpiHandle;
  uint32_t SpixTimeout = SPIx_TIMEOUT_MAX;    /*<! Value of Timeout when SPI communication fails */
 
+uint8_t msg[MAX_STRING_SIZE];
+ 
+ 
 /** @defgroup L3GD20_Private_Variables
   * @{
   */
@@ -40,14 +43,18 @@ uint8_t gyroInit(void)
 void gyroStart(void)
 {
   float data[3] = {0};
+  uint8_t label[] = "-------GYRO-------\r\n";
   while (1)
   {
     /* USER CODE END WHILE */
+    uartSend(label);
 	  BSP_GYRO_GetXYZ(data);
 //	  printf("X = %f\r\n",data[0] / 1000);
 //	  printf("Y = %f\r\n",data[1] / 1000);
 //	  printf("Z = %f\r\n",data[2] / 1000);
-	  HAL_Delay(1000);
+//	  HAL_Delay(1000);
+          sprintf(msg,"X = %f\r\nY = %f\r\nZ = %f\r\n",data[0] / 1000,data[1] / 1000,data[2] / 1000);
+          uartSend(msg);
     /* USER CODE BEGIN 3 */
   }
 }

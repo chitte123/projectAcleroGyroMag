@@ -3,9 +3,10 @@
 #include "stm32f411e_discovery_accelerometer.h"
 #include "main.h"
 #include <stdio.h>
+#include "uart.h"
 
 static ACCELERO_DrvTypeDef *AccelerometerDrv;
-
+extern uint8_t msg[MAX_STRING_SIZE];
 
 void acceleroInit(void)
 {
@@ -16,14 +17,17 @@ void acceleroInit(void)
 void startAccelero(void)
 {
   int16_t pDataXYZ[3] = {0};
-  
+  uint8_t label[] = "-------ACCELERO-------\r\n";
   while(1)
   {
+    uartSend(label);
       BSP_ACCELERO_GetXYZ(pDataXYZ);
 //      printf("X = %d\r\n",pDataXYZ[0]);
 //      printf("Y = %d\r\n",pDataXYZ[1]);
 //      printf("Z = %d\r\n",pDataXYZ[2]);
-      HAL_Delay(50);
+//      HAL_Delay(50);
+   sprintf(msg,"X = %d\r\nY = %d\r\nZ = %d\r\n",pDataXYZ[0],pDataXYZ[1],pDataXYZ[2]);
+   uartSend(msg);
   }
 }
 

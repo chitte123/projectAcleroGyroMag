@@ -48,7 +48,7 @@ void freeRtosTask(void)
               NULL ); /* This example does not use the task handle. */
   
   xTaskCreate((TaskFunction_t) gyroStart, "Gyro", 500, NULL, 1, NULL );
-  xTaskCreate( (TaskFunction_t)ultraSonicStart, "ultraSonic", 500, NULL, 1, NULL );
+  //xTaskCreate( (TaskFunction_t)ultraSonicStart, "ultraSonic", 500, NULL, 1, NULL );
   //xTaskCreate( vTask4, "Task 2", 500, NULL, 1, NULL );
 
     

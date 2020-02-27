@@ -111,6 +111,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
     /* USER CODE BEGIN 2 */
+  MX_USART2_UART_Init();
   acceleroInit();
   initUltraSonic();
   gyroInit();

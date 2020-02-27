@@ -1,8 +1,16 @@
 #include "main.h"
 #include "uart.h"
+#include <string.h>
 
 UART_HandleTypeDef huart2;
 
+
+void uartSend(uint8_t *string)
+{
+  uint8_t size = strlen(string);
+  //sprintf("")
+  HAL_UART_Transmit(&huart2,string,size,1000);
+}
 
 /**
   * @brief USART2 Initialization Function
