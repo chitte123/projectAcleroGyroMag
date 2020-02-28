@@ -1,11 +1,13 @@
 #include "main.h"
 #include "accelero.h"
 #include "lsm303dlhc.h"
-
+#include "FreeRTOS.h"
+#include "task.h"
 /****************************** LINK ACCELEROMETER ****************************/
 
 static I2C_HandleTypeDef I2cHandle;
 uint32_t I2cxTimeout = I2Cx_TIMEOUT_MAX;    /*<! Value of Timeout when I2C communication fails */
+extern TaskHandle_t *tapHandle;
 
 /* I2Cx bus function */
 static void    I2Cx_Init(void);
@@ -57,11 +59,23 @@ void COMPASSACCELERO_IO_ITConfig(void)
   HAL_NVIC_EnableIRQ(ACCELERO_INT1_EXTI_IRQn);
 }
 
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+//{
+//  if(GPIO_Pin == ACCELERO_INT1_PIN || GPIO_Pin == ACCELERO_INT2_PIN)
+//  HAL_GPIO_TogglePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin);
+//}
+
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == ACCELERO_INT1_PIN || GPIO_Pin == ACCELERO_INT2_PIN)
-  HAL_GPIO_TogglePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin);
+  {
+    HAL_GPIO_TogglePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin);
+//     vTaskResume( *tapHandle );
+    xTaskResumeFromISR(tapHandle);
+  }
 }
+
 
 /**
   * @brief  Writes one byte to the COMPASS / ACCELERO.

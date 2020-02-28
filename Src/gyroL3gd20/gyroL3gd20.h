@@ -382,6 +382,7 @@ void    BSP_GYRO_GetXYZ(float *pfData);
 
 void gyroStart(void);
 uint8_t gyroInit(void);
+void printGyro(void);
 
 
 #ifdef __cplusplus

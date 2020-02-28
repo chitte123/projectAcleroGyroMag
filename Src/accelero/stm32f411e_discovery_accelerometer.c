@@ -4,9 +4,16 @@
 #include "main.h"
 #include <stdio.h>
 #include "uart.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "projdefs.h"
+#include "semphr.h"
 
+extern TaskHandle_t *tapHandle;
 static ACCELERO_DrvTypeDef *AccelerometerDrv;
 extern uint8_t msg[MAX_STRING_SIZE];
+int16_t pDataXYZ[3] = {0};
+extern SemaphoreHandle_t xMutex;
 
 void acceleroInit(void)
 {
@@ -16,22 +23,48 @@ void acceleroInit(void)
 
 void startAccelero(void)
 {
-  int16_t pDataXYZ[3] = {0};
-  uint8_t label[] = "-------ACCELERO-------\r\n";
   while(1)
   {
-    uartSend(label);
       BSP_ACCELERO_GetXYZ(pDataXYZ);
 //      printf("X = %d\r\n",pDataXYZ[0]);
 //      printf("Y = %d\r\n",pDataXYZ[1]);
 //      printf("Z = %d\r\n",pDataXYZ[2]);
 //      HAL_Delay(50);
-   sprintf(msg,"X = %d\r\nY = %d\r\nZ = %d\r\n",pDataXYZ[0],pDataXYZ[1],pDataXYZ[2]);
-   uartSend(msg);
+    vTaskDelay(pdMS_TO_TICKS( 100 ));
   }
 }
 
+void printAccelero(void)
+{
+  uint8_t label[] = "-------ACCELERO-------\r\n";
+  
+  while(1)
+  {
+  xSemaphoreTake( xMutex, portMAX_DELAY );
+uartSend(label); 
+    sprintf(msg,"AX = %d\r\nAY = %d\r\nAZ = %d\r\n",pDataXYZ[0],pDataXYZ[1],pDataXYZ[2]);
+    uartSend(msg);
+  xSemaphoreGive(xMutex);
+//    vTaskDelay(pdMS_TO_TICKS( 600 ));
+  }
+}
 
+void tapDetected(void)
+{
+  uint8_t label[] = "Tap detected\r\n";
+  
+  while(1)
+  {
+    uint32_t timeout = HAL_GetTick();
+    while((HAL_GetTick() - timeout) < 500)
+    {
+      xSemaphoreTake( xMutex, portMAX_DELAY );
+      uartSend(label);
+      xSemaphoreGive(xMutex);
+    }
+    vTaskSuspend(tapHandle);
+  }
+}
 
 /**
   * @brief  Set Accelerometer Initialization.
