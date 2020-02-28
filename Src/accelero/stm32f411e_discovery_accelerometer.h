@@ -65,6 +65,9 @@ void    BSP_ACCELERO_Click_ITConfig(void);
 void    BSP_ACCELERO_GetXYZ(int16_t *pDataXYZ);
 void acceleroInit(void);
 void startAccelero(void);
+void printAccelero(void);
+void tapDetected(void);
+
 
 
 

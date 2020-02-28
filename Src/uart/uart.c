@@ -1,8 +1,26 @@
 #include "main.h"
 #include "uart.h"
+#include <string.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
 
 UART_HandleTypeDef huart2;
 
+extern SemaphoreHandle_t xMutex;
+
+void uartSend(uint8_t *string)
+{
+//  taskENTER_CRITICAL();
+//  vTaskSuspendScheduler();
+//  xSemaphoreTake( xMutex, portMAX_DELAY );
+  uint8_t size = strlen(string);
+  //sprintf("")
+  HAL_UART_Transmit(&huart2,string,size,1000);
+//  taskEXIT_CRITICAL();
+//  xTaskResumeScheduler();
+//  xSemaphoreGive(xMutex);
+}
 
 /**
   * @brief USART2 Initialization Function

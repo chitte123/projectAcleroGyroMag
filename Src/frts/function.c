@@ -12,7 +12,7 @@
 #include "gyroL3gd20.h"
 #include "stm32f411e_discovery_accelerometer.h"
 
-
+TaskHandle_t tapHandle;
 uint32_t mainDELAY_LOOP_COUNT = 10000;
 
 //void freeRtosTask(void)
@@ -41,15 +41,18 @@ void freeRtosTask(void)
   xTaskCreate((TaskFunction_t)startAccelero, /* Pointer to the function that implements the task. */
               "Accelero",/* Text name for the task. This is to facilitate 
               debugging only. */
-              500, /* Stack depth - small microcontrollers will use much
+              300, /* Stack depth - small microcontrollers will use much
               less stack than this. */
               NULL, /* This example does not use the task parameter. */
-              1, /* This task will run at priority 1. */
+              2, /* This task will run at priority 1. */
               NULL ); /* This example does not use the task handle. */
   
-  xTaskCreate((TaskFunction_t) gyroStart, "Gyro", 500, NULL, 1, NULL );
-  xTaskCreate( (TaskFunction_t)ultraSonicStart, "ultraSonic", 500, NULL, 1, NULL );
+  xTaskCreate((TaskFunction_t) tapDetected, "tap", 300,NULL , 3, &tapHandle );
+  xTaskCreate((TaskFunction_t) gyroStart, "Gyro", 300, NULL, 2, NULL );
+  //xTaskCreate( (TaskFunction_t)ultraSonicStart, "ultraSonic", 500, NULL, 1, NULL );
   //xTaskCreate( vTask4, "Task 2", 500, NULL, 1, NULL );
+  xTaskCreate((TaskFunction_t)printAccelero , "GyroPrint", 300, NULL, 1, NULL );
+  xTaskCreate((TaskFunction_t) printGyro, "AcceleroPrint", 300, NULL, 1, NULL );
 
     
   

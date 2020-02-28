@@ -1,10 +1,19 @@
 #include "gyroL3gd20.h"
-
+#include "uart.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "projdefs.h"
+#include "semphr.h"
 
 /******************************* SPI Routines**********************************/
  SPI_HandleTypeDef SpiHandle;
  uint32_t SpixTimeout = SPIx_TIMEOUT_MAX;    /*<! Value of Timeout when SPI communication fails */
 
+uint8_t msg[MAX_STRING_SIZE];
+float data[3] = {0};
+extern SemaphoreHandle_t xMutex;
+ 
+ 
 /** @defgroup L3GD20_Private_Variables
   * @{
   */
@@ -39,16 +48,33 @@ uint8_t gyroInit(void)
 
 void gyroStart(void)
 {
-  float data[3] = {0};
   while (1)
   {
     /* USER CODE END WHILE */
+
 	  BSP_GYRO_GetXYZ(data);
 //	  printf("X = %f\r\n",data[0] / 1000);
 //	  printf("Y = %f\r\n",data[1] / 1000);
 //	  printf("Z = %f\r\n",data[2] / 1000);
-	  HAL_Delay(1000);
+//	  HAL_Delay(1000);
+              vTaskDelay(pdMS_TO_TICKS( 100 ));
+
     /* USER CODE BEGIN 3 */
+  }
+}
+
+void printGyro(void)
+{
+    uint8_t label[] = "-------GYRO-------\r\n";
+        
+  while(1)
+  {
+    xSemaphoreTake( xMutex, portMAX_DELAY );
+    uartSend(label);
+    sprintf(msg,"GX = %f\r\nGY = %f\r\nGZ = %f\r\n",data[0] / 1000,data[1] / 1000,data[2] / 1000);
+    uartSend(msg);    
+    xSemaphoreGive(xMutex);
+//    vTaskDelay(pdMS_TO_TICKS( 800 ));
   }
 }
 

@@ -32,7 +32,9 @@
 #include "uart.h"
 #include "gyroL3gd20.h"
 #include "stm32f411e_discovery_accelerometer.h"
-
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,7 +80,7 @@ void startAccelero(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+SemaphoreHandle_t xMutex;
 /* USER CODE END 0 */
 
 /**
@@ -111,10 +113,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
     /* USER CODE BEGIN 2 */
+  MX_USART2_UART_Init();
   acceleroInit();
-  initUltraSonic();
+//  initUltraSonic();
   gyroInit();
-  freeRtosTask();
+  xMutex = xSemaphoreCreateMutex();
+  if(xMutex != NULL)
+    freeRtosTask();
 
   /* USER CODE END 2 */
   /* Init scheduler */

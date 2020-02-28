@@ -9,7 +9,7 @@ extern UART_HandleTypeDef huart2;
 uint32_t time = 0;
 uint32_t sensorTime = 0;
 uint32_t distance = 0;
-uint8_t msg[30] = {0};
+uint8_t buffer[30] = {0};
 
 
 void initUltraSonic(void)
@@ -24,9 +24,9 @@ void ultraSonicStart(void)
       sensorTime = hcsr04_read();
       //distance  = sensorTime * .034/2;
       distance  = sensorTime / 58;
-      sprintf(msg,"distance = %d cm\r\n",distance);
-      HAL_UART_Transmit(&huart2,msg,30,1000);
-      memset(msg,0,30);
+      sprintf(buffer,"distance = %d cm\r\n",distance);
+      HAL_UART_Transmit(&huart2,buffer,30,1000);
+      memset(buffer,0,30);
       HAL_Delay(200);
     }
     
